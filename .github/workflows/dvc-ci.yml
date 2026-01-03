@@ -1,40 +1,40 @@
 name: DVC CI Pipeline
+
 on:
-    push:
-        branches: [ main ]
-    pull_request:
+  push:
+    branches: [ main ]
+  pull_request:
 
 jobs:
-    dvc_pipeline:
-        runs-on: ubunut-latest
+  dvc-pipeline:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-            
-            - name: setup python
-              uses: actions/setup-python@v5
-              with:
-                python-version: "3.10"
-            
-            - name: Install Dependencies
-              run: |
-               python -m pip install --upgrade pip
-               pip insatall -r requirements.txt
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Pull DVC data
-              env:
-                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-              run: |
-                dvc pull
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
-            - name: Reproduce DVC Pipeline
-              run: |
-                dvc repro
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-            - name: Show Pipeline status
-              run: |
-                dvc status
+      - name: Pull DVC data
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        run: |
+          dvc pull
 
+      - name: Reproduce DVC pipeline
+        run: |
+          dvc repro
+
+      - name: Show pipeline status
+        run: |
+          dvc status
