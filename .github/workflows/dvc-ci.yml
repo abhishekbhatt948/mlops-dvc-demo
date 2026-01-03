@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 name: DVC CI Pipeline
 
+=======
+name: dvc ci pipeline
+>>>>>>> 0ce0f78b8fb68e2e60600341662e2629083be8aa
 on:
   push:
     branches: [ main ]
@@ -18,10 +22,16 @@ jobs:
         with:
           python-version: "3.10"
 
+<<<<<<< HEAD
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+=======
+            - name: Reproduce dvc Pipeline
+              run: |
+                dvc repro
+>>>>>>> 0ce0f78b8fb68e2e60600341662e2629083be8aa
 
       - name: Pull DVC data
         env:
