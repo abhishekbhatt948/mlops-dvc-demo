@@ -1,0 +1,14 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python train.py --force
+    deps:
+    - path: data/train.csv
+      hash: md5
+      md5: a61bee3d1d05faf7e301a63ae87e4b4f
+      size: 14
+    outs:
+    - path: models/model.txt
+      hash: md5
+      md5: c425056a5e8573984060094b92123bd9
+      size: 23
